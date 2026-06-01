@@ -813,13 +813,91 @@ const EMERGENCY_STEPS = [
 ];
 
 const SHOPPING = [
-  { cat:"🥩 Protein", mb:"lunch", items:["Yumurta (~1.5 düzine)","Tavuk göğsü (~600 g)","Hindi göğsü / şinitzel (~500 g)","Hindi kıyma (~150 g)","Yağsız dana kıyma (~250 g)","Somon (~400 g)","Çupra / levrek (~150 g)","Lor peyniri (~100 g)","Hellim (60 g, brunch)"] },
-  { cat:"🥛 Süt", mb:"morning", items:["Sade yoğurt %2 (~1.5 kg)","Yağlı yoğurt (cacık için, küçük)"] },
-  { cat:"🥬 Sebze", mb:"snack", items:["Marul","Roka","Salatalık (bol)","Taze soğan","Maydanoz","Dereotu","Kuru soğan","Sarımsak","Havuç","Kabak (~4-5)","Kuşkonmaz","Taze fasulye","Pırasa","Mantar","Ispanak (taze)","Avokado (~4-5)","Limon (~6-8)"] },
-  { cat:"🍓 Meyve", mb:"dinner", items:["Yaban mersini / frambuaz","Elma (~5-6)","Muz (~5-6)","Kuru kayısı (küçük)","Hurma (küçük paket)","Kavun (ops.)"] },
-  { cat:"🌾 Tahıl / Bakliyat", mb:"training", items:["Yulaf ezmesi (~500 g)","Kinoa (küçük)","Kırmızı / yeşil mercimek (~500 g)","Nohut (1-2 konserve)","Bulgur (küçük)","Çavdar tam tahıl ekmek (1 somun)","Tatlı patates (Hf3, 1-2)"] },
-  { cat:"🫒 Yağ / Baharat / Pantry", mb:"night", items:["Yüksek polifenol EVOO","Hafif zeytinyağı (pişirme)","Badem (çiğ + kavrulmuş tuzsuz)","Badem ezmesi","Tarçın","Kekik","Kimyon","Karabiber","Kuru nane","Himalaya tuzu","Balsamik sirke","%85 bitter çikolata","Yeşil zeytin","Bitki çayı (papatya / melisa / rezene)","Türk / filtre kahve","Pirinç + süt + un (sütlaç, ops.)","Kuru beyaz şarap (ops.)"] },
-  { cat:"💊 Supplement stok (biten var mı?)", mb:"lunch", items:["Levotiron (reçete)","Calciday (reçete)","Qalyviz (reçete)","Selenometyonin","Magnezyum bisglycinate","B-Complex","Çinko + Bakır","Omega-3","ViDrate","Marine kollajen","UC-II","Whey","Kreatin"] }
+  { cat:"🥩 Protein", mb:"lunch", items:[
+    { n:"Yumurta (~1.5 düzine)" },
+    { n:"Tavuk göğsü (~600 g)", alt:"hindi göğsü, beyaz balık" },
+    { n:"Hindi göğsü / şinitzel (~500 g)", alt:"tavuk göğsü" },
+    { n:"Hindi kıyma (~150 g)", alt:"tavuk kıyma, yağsız dana" },
+    { n:"Yağsız dana kıyma (~250 g)", alt:"hindi / tavuk kıyma" },
+    { n:"Somon (~400 g)", alt:"çupra, levrek, alabalık, sardalya, uskumru" },
+    { n:"Çupra / levrek (~150 g)", alt:"somon, alabalık, beyaz balık" },
+    { n:"Lor peyniri (~100 g)", alt:"süzme peynir, az tuzlu beyaz peynir" },
+    { n:"Hellim (60 g, brunch)", alt:"az tuzlu beyaz peynir ızgara" }
+  ]},
+  { cat:"🥛 Süt", mb:"morning", items:[
+    { n:"Sade yoğurt %2 (~1.5 kg)", alt:"kefir, süzme yoğurt" },
+    { n:"Yağlı yoğurt (cacık için, küçük)" }
+  ]},
+  { cat:"🥬 Sebze", mb:"snack", items:[
+    { n:"Marul", alt:"kıvırcık, romaine, pazı" },
+    { n:"Roka", alt:"su teresi, semizotu, pazı" },
+    { n:"Salatalık (bol)", alt:"çiğ kabak, frenk soğanı" },
+    { n:"Taze soğan" },
+    { n:"Maydanoz" },
+    { n:"Dereotu" },
+    { n:"Kuru soğan" },
+    { n:"Sarımsak" },
+    { n:"Havuç" },
+    { n:"Kabak (~4-5)", alt:"bal kabağı (az), kabak çiçeği" },
+    { n:"Kuşkonmaz", alt:"taze fasulye, pırasa, enginar" },
+    { n:"Taze fasulye", alt:"kuşkonmaz, bamya" },
+    { n:"Pırasa", alt:"enginar, taze soğan ızgara" },
+    { n:"Mantar" },
+    { n:"Ispanak (taze)", alt:"pazı, semizotu" },
+    { n:"Avokado (~4-5)", alt:"5 zeytin + 1 yk ekstra EVOO" },
+    { n:"Limon (~6-8)" }
+  ]},
+  { cat:"🍓 Meyve", mb:"dinner", items:[
+    { n:"Yaban mersini / frambuaz", alt:"çilek, böğürtlen, vişne" },
+    { n:"Elma (~5-6)", alt:"armut, yeşil elma" },
+    { n:"Muz (~5-6)" },
+    { n:"Kuru kayısı (küçük)", alt:"hurma" },
+    { n:"Hurma (küçük paket)", alt:"kuru kayısı" },
+    { n:"Kavun (ops.)", alt:"karpuz (az)" }
+  ]},
+  { cat:"🌾 Tahıl / Bakliyat", mb:"training", items:[
+    { n:"Yulaf ezmesi (~500 g)", alt:"kinoa, bulgur lapası" },
+    { n:"Kinoa (küçük)", alt:"bulgur, karabuğday" },
+    { n:"Kırmızı / yeşil mercimek (~500 g)", alt:"nohut, kuru fasulye" },
+    { n:"Nohut (1-2 konserve)", alt:"kuru nohut (ıslat)" },
+    { n:"Bulgur (küçük)" },
+    { n:"Çavdar tam tahıl ekmek (1 somun)", alt:"tam buğday, siyez ekmeği" },
+    { n:"Tatlı patates (Hf3, 1-2)" }
+  ]},
+  { cat:"🫒 Yağ / Baharat / Pantry", mb:"night", items:[
+    { n:"Yüksek polifenol EVOO" },
+    { n:"Hafif zeytinyağı (pişirme)" },
+    { n:"Badem (çiğ + kavrulmuş tuzsuz)", alt:"— badem dışı kuruyemiş YOK" },
+    { n:"Badem ezmesi", alt:"çiğ bademi öğüt" },
+    { n:"Tarçın" },
+    { n:"Kekik" },
+    { n:"Kimyon" },
+    { n:"Karabiber" },
+    { n:"Kuru nane" },
+    { n:"Himalaya / kaya tuzu", alt:"iyotsuz deniz tuzu (az)" },
+    { n:"Balsamik sirke", alt:"elma sirkesi, limon" },
+    { n:"%85 bitter çikolata" },
+    { n:"Yeşil zeytin" },
+    { n:"Bitki çayı (papatya / melisa / rezene)" },
+    { n:"Türk / filtre kahve" },
+    { n:"Pirinç + süt + un (sütlaç, ops.)" },
+    { n:"Kuru beyaz şarap (ops.)" }
+  ]},
+  { cat:"💊 Supplement stok (biten var mı?)", mb:"lunch", items:[
+    { n:"Levotiron (reçete)" },
+    { n:"Calciday (reçete)" },
+    { n:"Qalyviz (reçete)" },
+    { n:"Selenometyonin" },
+    { n:"Magnezyum bisglycinate" },
+    { n:"B-Complex" },
+    { n:"Çinko + Bakır" },
+    { n:"Omega-3" },
+    { n:"ViDrate" },
+    { n:"Marine kollajen" },
+    { n:"UC-II" },
+    { n:"Whey" },
+    { n:"Kreatin" }
+  ]}
 ];
 
 // ============== APP STATE ==============
@@ -999,8 +1077,9 @@ function renderShopping() {
     cat.items.forEach((it, ii) => {
       const k = `shop-${ci}-${ii}`;
       const checked = store[k];
+      const altHtml = it.alt ? `<div style="font-size:11px;color:#8B7F71;margin-top:2px">↳ bulamazsan: ${it.alt}</div>` : '';
       html += `<li class="${checked?'checked':''}" data-shopkey="${k}">
-        <div class="check"></div><div class="text">${it}</div>
+        <div class="check"></div><div class="text">${it.n}${altHtml}</div>
       </li>`;
     });
     html += `</ul></div>`;
