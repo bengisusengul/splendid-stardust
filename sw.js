@@ -1,5 +1,5 @@
 // Splendid Stardust — service worker
-const CACHE = 'camp-v2';
+const CACHE = 'camp-v3';
 const ASSETS = [
   './',
   './index.html',

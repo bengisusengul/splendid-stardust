@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#A8C8E1">
+<meta name="theme-color" content="#3E4FB5">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -355,6 +355,67 @@
   html[data-theme="dark"] .chart svg { background: #15181c; }
   html[data-theme="dark"] .head-toggle { background: rgba(0,0,0,0.25); }
   html[data-theme="dark"] .seg button.active { background: #E6E1DA; color: #15181c; }
+
+  /* ===== v3 · Sonoma wallpaper palette (blue → purple → green) ===== */
+  header {
+    background: linear-gradient(125deg, #3E4FB5 0%, #5B4FB0 27%, #8C5AA8 47%, #9E5C96 61%, #4DA59A 82%, #5FC08A 100%);
+    color: #ffffff;
+  }
+  header h1 { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.20); }
+  header .sub { color: rgba(255,255,255,0.92); opacity: 1; }
+  header .progress-bar { background: rgba(255,255,255,0.32); }
+  header .progress-bar > div { background: #fff; }
+  .head-toggle { background: rgba(255,255,255,0.28); color: #fff; }
+  .toggle.on { background: #5FC08A; }
+  .chart svg path { stroke: #8C5AA8 !important; }
+  .chart svg circle { fill: #5B4B9E !important; }
+  /* meal-block accents sampled across the gradient */
+  .meal-block { border-left-color: #4F63D2; }
+  .meal-block.morning { border-left-color: #5B4FB0; }
+  .meal-block.lunch { border-left-color: #5FC08A; }
+  .meal-block.snack { border-left-color: #B25C9C; }
+  .meal-block.training { border-left-color: #8C5AA8; }
+  .meal-block.dinner { border-left-color: #4DA59A; }
+  .meal-block.night { border-left-color: #3E4FB5; }
+  /* light-theme accents → indigo/purple */
+  html:not([data-theme="dark"]) body { background: #F5F5FB; }
+  html:not([data-theme="dark"]) nav.tabs button.active,
+  html:not([data-theme="dark"]) .day-nav button.active,
+  html:not([data-theme="dark"]) .week-select button.active,
+  html:not([data-theme="dark"]) .seg button.active,
+  html:not([data-theme="dark"]) .btn:not(.ghost):not(.danger) {
+    background: #5B4B9E; color: #fff; border-color: #5B4B9E;
+  }
+  html:not([data-theme="dark"]) .check-list li.checked .check { background: #5B4B9E; border-color: #5B4B9E; }
+  html:not([data-theme="dark"]) .day-nav button.today { border-color: #8C5AA8; }
+  html:not([data-theme="dark"]) .day-nav button.today.active { border-color: #5B4B9E; }
+  html:not([data-theme="dark"]) .card.day-head { background: linear-gradient(135deg, #F1EEFA, #fff); }
+  html:not([data-theme="dark"]) .week-select button { color: #5B4B9E; }
+  /* dark-theme → purple-tinted, periwinkle accent */
+  html[data-theme="dark"] body { background: #14131c; }
+  html[data-theme="dark"] nav.tabs { background: #1d1b29; border-bottom-color: #2c2940; }
+  html[data-theme="dark"] nav.tabs button { background: #272445; color: #b8b2d8; }
+  html[data-theme="dark"] .card { background: #1d1b29; border-color: #2c2940; }
+  html[data-theme="dark"] .card.day-head { background: linear-gradient(135deg, #1d1b29, #262338); }
+  html[data-theme="dark"] .supp-item,
+  html[data-theme="dark"] .filter-row,
+  html[data-theme="dark"] .step,
+  html[data-theme="dark"] .energy-buttons button,
+  html[data-theme="dark"] .seg button { background: #272445; }
+  html[data-theme="dark"] .measure-form input { background: #272445; border-color: #2c2940; }
+  html[data-theme="dark"] .regl-switch { background: #1d1b29; border-color: #2c2940; }
+  html[data-theme="dark"] .macro-chip span { background: #272445; border-color: #2c2940; }
+  html[data-theme="dark"] nav.tabs button.active,
+  html[data-theme="dark"] .day-nav button.active,
+  html[data-theme="dark"] .week-select button.active,
+  html[data-theme="dark"] .seg button.active,
+  html[data-theme="dark"] .btn:not(.ghost):not(.danger) {
+    background: #8C7BE0; color: #14131c; border-color: #8C7BE0;
+  }
+  html[data-theme="dark"] .check-list li.checked .check { background: #8C7BE0; border-color: #8C7BE0; }
+  html[data-theme="dark"] .check-list li.checked .check::after { border-color: #14131c; }
+  html[data-theme="dark"] .day-nav button.today,
+  html[data-theme="dark"] .day-nav button.today.active { border-color: #8C7BE0; }
 </style>
 </head>
 <body>
