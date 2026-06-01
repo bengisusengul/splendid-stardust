@@ -284,6 +284,7 @@
 <nav class="tabs">
   <button data-tab="today" class="active">Bugün</button>
   <button data-tab="week">Hafta</button>
+  <button data-tab="market">Market</button>
   <button data-tab="supplement">Supplement</button>
   <button data-tab="backup">Yedek</button>
   <button data-tab="emergency">Acil</button>
@@ -315,6 +316,22 @@
       <p><strong>Makrolar:</strong> Protein 130-145g · Yağ 50-60g · Karb 100-130g</p>
       <p><strong>IF penceresi:</strong> 10:30-19:00</p>
       <p><strong>Kahve:</strong> 11:00 öncesi YASAK (Levo emilim). 15:00 sonrası YASAK (uyku).</p>
+    </div>
+  </section>
+
+  <!-- TAB: MARKET -->
+  <section class="panel" id="panel-market">
+    <div class="card">
+      <h2>🛒 Haftalık Market Listesi <span class="time" id="shop-count"></span></h2>
+      <p class="note">Markette gezerken tikle. ~1 kişi / 1 hafta. Tüm filtrelerine uygun (Brassica / kereviz / gece gölgesi / tohum YOK — sadece badem).</p>
+      <div id="shopping-list"></div>
+      <button class="btn ghost" onclick="resetShopping()">Listeyi sıfırla (yeni hafta)</button>
+    </div>
+    <div class="card">
+      <h2>📝 Haftaya Göre Ekstra</h2>
+      <p><strong>Hafta 2:</strong> Değişiklik yok, aynı liste.</p>
+      <p><strong>Hafta 3:</strong> + tatlı patates, + biraz fazla kinoa (Cmt carb refeed).</p>
+      <p><strong>Regl haftası:</strong> + yağsız kırmızı et 1 ekstra, + pekmez (bazı günler badem ezmesi yerine).</p>
     </div>
   </section>
 
@@ -795,6 +812,16 @@ const EMERGENCY_STEPS = [
   { title:"Son çare: 1 hurma + 5 badem + tarçın", text:"Doğal şeker + yağ + fiber. Haftada max 2." }
 ];
 
+const SHOPPING = [
+  { cat:"🥩 Protein", mb:"lunch", items:["Yumurta (~1.5 düzine)","Tavuk göğsü (~600 g)","Hindi göğsü / şinitzel (~500 g)","Hindi kıyma (~150 g)","Yağsız dana kıyma (~250 g)","Somon (~400 g)","Çupra / levrek (~150 g)","Lor peyniri (~100 g)","Hellim (60 g, brunch)"] },
+  { cat:"🥛 Süt", mb:"morning", items:["Sade yoğurt %2 (~1.5 kg)","Yağlı yoğurt (cacık için, küçük)"] },
+  { cat:"🥬 Sebze", mb:"snack", items:["Marul","Roka","Salatalık (bol)","Taze soğan","Maydanoz","Dereotu","Kuru soğan","Sarımsak","Havuç","Kabak (~4-5)","Kuşkonmaz","Taze fasulye","Pırasa","Mantar","Ispanak (taze)","Avokado (~4-5)","Limon (~6-8)"] },
+  { cat:"🍓 Meyve", mb:"dinner", items:["Yaban mersini / frambuaz","Elma (~5-6)","Muz (~5-6)","Kuru kayısı (küçük)","Hurma (küçük paket)","Kavun (ops.)"] },
+  { cat:"🌾 Tahıl / Bakliyat", mb:"training", items:["Yulaf ezmesi (~500 g)","Kinoa (küçük)","Kırmızı / yeşil mercimek (~500 g)","Nohut (1-2 konserve)","Bulgur (küçük)","Çavdar tam tahıl ekmek (1 somun)","Tatlı patates (Hf3, 1-2)"] },
+  { cat:"🫒 Yağ / Baharat / Pantry", mb:"night", items:["Yüksek polifenol EVOO","Hafif zeytinyağı (pişirme)","Badem (çiğ + kavrulmuş tuzsuz)","Badem ezmesi","Tarçın","Kekik","Kimyon","Karabiber","Kuru nane","Himalaya tuzu","Balsamik sirke","%85 bitter çikolata","Yeşil zeytin","Bitki çayı (papatya / melisa / rezene)","Türk / filtre kahve","Pirinç + süt + un (sütlaç, ops.)","Kuru beyaz şarap (ops.)"] },
+  { cat:"💊 Supplement stok (biten var mı?)", mb:"lunch", items:["Levotiron (reçete)","Calciday (reçete)","Qalyviz (reçete)","Selenometyonin","Magnezyum bisglycinate","B-Complex","Çinko + Bakır","Omega-3","ViDrate","Marine kollajen","UC-II","Whey","Kreatin"] }
+];
+
 // ============== APP STATE ==============
 const DAYS = ["PAZAR","PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA","CUMARTESİ"];
 const DAY_SHORT = ["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"];
@@ -948,6 +975,56 @@ function renderEmergency() {
   `).join('');
 }
 
+function shopCount() {
+  const store = getStore();
+  let total = 0, done = 0;
+  SHOPPING.forEach((cat, ci) => cat.items.forEach((it, ii) => { total++; if (store[`shop-${ci}-${ii}`]) done++; }));
+  return { total, done };
+}
+function renderShoppingCount() {
+  const c = document.getElementById('shop-count');
+  if (!c) return;
+  const { total, done } = shopCount();
+  c.textContent = done + '/' + total;
+}
+function renderShopping() {
+  const el = document.getElementById('shopping-list');
+  if (!el) return;
+  const store = getStore();
+  let html = '';
+  SHOPPING.forEach((cat, ci) => {
+    html += `<div class="meal-block ${cat.mb}" style="margin-top:16px">
+      <div class="meal-title">${cat.cat}</div>
+      <ul class="check-list">`;
+    cat.items.forEach((it, ii) => {
+      const k = `shop-${ci}-${ii}`;
+      const checked = store[k];
+      html += `<li class="${checked?'checked':''}" data-shopkey="${k}">
+        <div class="check"></div><div class="text">${it}</div>
+      </li>`;
+    });
+    html += `</ul></div>`;
+  });
+  el.innerHTML = html;
+  renderShoppingCount();
+  el.querySelectorAll('li[data-shopkey]').forEach(li => {
+    li.onclick = () => {
+      const s = getStore();
+      const key = li.dataset.shopkey;
+      s[key] = !s[key];
+      setStore(s);
+      li.classList.toggle('checked');
+      renderShoppingCount();
+    };
+  });
+}
+function resetShopping() {
+  const s = getStore();
+  Object.keys(s).forEach(k => { if (k.indexOf('shop-') === 0) delete s[k]; });
+  setStore(s);
+  renderShopping();
+}
+
 function renderEnergyButtons() {
   const el = document.getElementById('energy-buttons');
   const d = new Date().toISOString().slice(0,10);
@@ -1073,6 +1150,7 @@ renderWeekSummary();
 renderSupplements();
 renderBackup();
 renderEmergency();
+renderShopping();
 renderEnergyButtons();
 renderMeasureHistory();
 loadMeasure();
