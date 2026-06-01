@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#A8C8E1">
+<title>Splendid Stardust · 3 Haftalık Kamp</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    background: #FAF8F5;
+    color: #2C2C2C;
+    line-height: 1.55;
+    font-size: 16px;
+    overscroll-behavior-y: none;
+  }
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #A8C8E1 0%, #B8D8B8 100%);
+    color: #1a3a4a;
+    padding: 18px 16px 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: sticky; top: 0; z-index: 50;
+  }
+  header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  header .sub { font-size: 12px; opacity: 0.78; margin-top: 2px; font-weight: 500; }
+  header .progress-bar {
+    height: 4px; background: rgba(255,255,255,0.4); border-radius: 4px;
+    margin-top: 10px; overflow: hidden;
+  }
+  header .progress-bar > div {
+    height: 100%; background: #fff; transition: width 0.4s ease;
+  }
+  /* TABS */
+  nav.tabs {
+    display: flex; overflow-x: auto; gap: 4px;
+    padding: 10px 12px; background: #fff;
+    border-bottom: 1px solid #ebe6df;
+    position: sticky; top: 84px; z-index: 49;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button {
+    background: #F2EEEA; color: #6B6055; border: none;
+    padding: 8px 14px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; white-space: nowrap;
+    cursor: pointer; transition: all 0.15s;
+  }
+  nav.tabs button.active {
+    background: #2C2C2C; color: #FAF8F5;
+  }
+  /* MAIN */
+  main { padding: 16px 14px 80px; max-width: 720px; margin: 0 auto; }
+  section.panel { display: none; }
+  section.panel.active { display: block; animation: fade 0.3s; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  /* CARDS */
+  .card {
+    background: #fff; border-radius: 14px;
+    padding: 14px 16px; margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    border: 1px solid #f0ebe5;
+  }
+  .card h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: #8B7F71; margin-bottom: 10px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card h2 .time { color: #2C2C2C; font-family: ui-monospace, monospace; font-size: 12px; }
+  .card h3 { font-size: 15px; font-weight: 700; margin: 8px 0 4px; color: #2C2C2C; }
+  .card p { font-size: 14px; color: #4a4a4a; margin-bottom: 6px; }
+  .card p.note { font-size: 12px; color: #8B7F71; font-style: italic; margin-top: 4px; }
+  /* MEAL TIME BLOCKS */
+  .meal-block {
+    border-left: 3px solid #A8C8E1; padding-left: 12px; margin-bottom: 14px;
+  }
+  .meal-block.morning { border-color: #F5C4C0; }
+  .meal-block.lunch { border-color: #B8D8B8; }
+  .meal-block.snack { border-color: #E6D4A8; }
+  .meal-block.training { border-color: #C8A8E1; }
+  .meal-block.dinner { border-color: #A8C8E1; }
+  .meal-block.night { border-color: #6B6055; }
+  .meal-block .meal-time {
+    font-family: ui-monospace, monospace; font-size: 12px;
+    color: #8B7F71; font-weight: 600; margin-bottom: 2px;
+  }
+  .meal-block .meal-title {
+    font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #2C2C2C;
+  }
+  /* CHECKBOXES */
+  .check-list { list-style: none; }
+  .check-list li {
+    padding: 8px 0; display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer; border-bottom: 1px solid #f5f0eb;
+    user-select: none; -webkit-user-select: none;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list .check {
+    flex-shrink: 0; width: 22px; height: 22px; border: 2px solid #ccc6bd;
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; margin-top: 1px;
+  }
+  .check-list li.checked .check {
+    background: #2C2C2C; border-color: #2C2C2C;
+  }
+  .check-list li.checked .check::after {
+    content: ''; width: 6px; height: 11px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg); margin-top: -2px;
+  }
+  .check-list li.checked .text {
+    color: #aaa3a0; text-decoration: line-through;
+    text-decoration-color: #ccc;
+  }
+  .check-list .text { font-size: 14px; line-height: 1.45; }
+  .check-list .text strong { color: #2C2C2C; }
+  .check-list li.checked .text strong { color: #aaa3a0; }
+  /* DAY NAV */
+  .day-nav {
+    display: flex; gap: 6px; padding: 4px 0; margin-bottom: 12px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .day-nav::-webkit-scrollbar { display: none; }
+  .day-nav button {
+    flex: 1; min-width: 56px;
+    background: #fff; border: 1px solid #ebe6df;
+    border-radius: 10px; padding: 8px 4px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .day-nav button .dn { font-size: 10px; color: #8B7F71; text-transform: uppercase; font-weight: 600; }
+  .day-nav button .ds { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .day-nav button.active { background: #2C2C2C; color: #FAF8F5; border-color: #2C2C2C; }
+  .day-nav button.active .dn { color: #FAF8F5; opacity: 0.7; }
+  .day-nav button.today { border-color: #A8C8E1; border-width: 2px; }
+  .day-nav button.today.active { border-color: #2C2C2C; }
+  /* WEEK SELECTOR */
+  .week-select {
+    display: flex; gap: 8px; margin-bottom: 14px;
+  }
+  .week-select button {
+    flex: 1; background: #fff; border: 1px solid #ebe6df;
+    border-radius: 10px; padding: 10px 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    color: #6B6055; transition: all 0.15s;
+  }
+  .week-select button.active {
+    background: #2C2C2C; color: #FAF8F5; border-color: #2C2C2C;
+  }
+  /* TAGS */
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 100px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tag.alt { background: #F5C4C0; color: #8a3a32; }
+  .tag.lunch { background: #B8D8B8; color: #2d5530; }
+  .tag.rest { background: #E6D4A8; color: #6e5a1c; }
+  .tag.warning { background: #fde8d3; color: #8b4a14; }
+  .tag.ok { background: #d4f0d4; color: #2d5530; }
+  .tag.no { background: #f7d4d4; color: #8a3a32; }
+  /* FILTER TABLE */
+  .filter-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
+  .filter-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 10px; background: #FAF8F5; border-radius: 8px;
+  }
+  .filter-row .label { font-size: 13px; }
+  /* SUPPLEMENT TIMELINE */
+  .supp-timeline {
+    position: relative; padding-left: 60px;
+  }
+  .supp-item {
+    position: relative; padding: 10px 12px; margin-bottom: 10px;
+    background: #FAF8F5; border-radius: 10px;
+  }
+  .supp-item::before {
+    content: attr(data-time);
+    position: absolute; left: -56px; top: 12px;
+    font-family: ui-monospace, monospace; font-size: 11px;
+    font-weight: 700; color: #6B6055; width: 44px;
+    text-align: right;
+  }
+  .supp-item::after {
+    content: ''; position: absolute; left: -7px; top: 16px;
+    width: 8px; height: 8px; background: #A8C8E1; border-radius: 50%;
+    box-shadow: 0 0 0 3px #fff;
+  }
+  .supp-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .supp-dose { font-size: 12px; color: #6B6055; }
+  .supp-note { font-size: 11px; color: #8B7F71; margin-top: 4px; font-style: italic; }
+  /* EMERGENCY STEPS */
+  .step {
+    display: flex; gap: 12px; padding: 12px;
+    background: #FAF8F5; border-radius: 10px; margin-bottom: 8px;
+    border-left: 4px solid #F5C4C0;
+  }
+  .step-num {
+    flex-shrink: 0; width: 26px; height: 26px;
+    background: #F5C4C0; color: #8a3a32;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+  }
+  .step-text { font-size: 14px; }
+  .step-text strong { display: block; margin-bottom: 2px; }
+  /* MEASURE FORM */
+  .measure-form { display: grid; gap: 10px; }
+  .measure-form .row { display: flex; gap: 8px; }
+  .measure-form label {
+    flex: 1; display: block; font-size: 12px; color: #6B6055; font-weight: 600;
+  }
+  .measure-form input {
+    width: 100%; padding: 10px 12px; border: 1px solid #ebe6df;
+    border-radius: 8px; font-size: 15px; margin-top: 4px;
+    font-family: inherit; background: #fff;
+  }
+  .measure-form input:focus { outline: none; border-color: #A8C8E1; }
+  .btn {
+    background: #2C2C2C; color: #FAF8F5; border: none;
+    padding: 12px 18px; border-radius: 10px; font-size: 14px;
+    font-weight: 700; cursor: pointer; width: 100%;
+    margin-top: 8px;
+  }
+  .btn.ghost { background: transparent; color: #6B6055; border: 1px solid #ebe6df; }
+  .btn.danger { background: #f7d4d4; color: #8a3a32; }
+  .saved-msg {
+    font-size: 12px; color: #2d5530; text-align: center;
+    padding: 8px; opacity: 0; transition: opacity 0.3s;
+  }
+  .saved-msg.show { opacity: 1; }
+  /* MEASURE HISTORY */
+  .history-row {
+    display: grid; grid-template-columns: auto 1fr auto;
+    gap: 8px; padding: 8px 0;
+    border-bottom: 1px solid #f5f0eb;
+    font-size: 13px; align-items: center;
+  }
+  .history-row .label { font-weight: 700; color: #2C2C2C; }
+  .history-row .val { color: #4a4a4a; }
+  /* ENERGY */
+  .energy-buttons {
+    display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px;
+    margin-top: 8px;
+  }
+  .energy-buttons button {
+    aspect-ratio: 1; background: #FAF8F5; border: 1px solid #ebe6df;
+    border-radius: 8px; font-weight: 700; font-size: 13px;
+    cursor: pointer; color: #6B6055;
+  }
+  .energy-buttons button.active {
+    background: #2C2C2C; color: #FAF8F5; border-color: #2C2C2C;
+  }
+  /* WARNINGS */
+  .warning-box {
+    background: #fde8d3; border-left: 4px solid #d68b3d;
+    padding: 12px; border-radius: 8px; margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .warning-box strong { color: #8b4a14; }
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 20px;
+    font-size: 11px; color: #aaa3a0;
+  }
+  /* RESPONSIVE */
+  @media (min-width: 720px) {
+    body { font-size: 17px; }
+    header h1 { font-size: 20px; }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✨ Splendid Stardust · 3 Haftalık Kamp</h1>
+  <div class="sub" id="today-display">—</div>
+  <div class="progress-bar"><div id="day-progress" style="width:0%"></div></div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="today" class="active">Bugün</button>
+  <button data-tab="week">Hafta</button>
+  <button data-tab="supplement">Supplement</button>
+  <button data-tab="backup">Yedek</button>
+  <button data-tab="emergency">Acil</button>
+  <button data-tab="filters">Filtre</button>
+  <button data-tab="measure">Ölçüm</button>
+</nav>
+
+<main>
+  <!-- TAB: BUGÜN -->
+  <section class="panel active" id="panel-today">
+    <div class="week-select">
+      <button data-week="1" class="active">Hafta 1<br><small>Adaptasyon</small></button>
+      <button data-week="2">Hafta 2<br><small>Plateau Önleme</small></button>
+      <button data-week="3">Hafta 3<br><small>Final Push</small></button>
+    </div>
+    <div class="day-nav" id="day-nav"></div>
+    <div id="day-content"></div>
+  </section>
+
+  <!-- TAB: HAFTA ÖZET -->
+  <section class="panel" id="panel-week">
+    <div class="card">
+      <h2>Haftalık Program <span class="time">Pzt-Pzr</span></h2>
+      <div id="week-summary"></div>
+    </div>
+    <div class="card">
+      <h2>Genel İlkeler</h2>
+      <p><strong>Hedef:</strong> 2-3 kg / 3 hafta · ~500-600 kcal açık · 1700-1800 kcal/gün</p>
+      <p><strong>Makrolar:</strong> Protein 130-145g · Yağ 50-60g · Karb 100-130g</p>
+      <p><strong>IF penceresi:</strong> 10:30-19:00</p>
+      <p><strong>Kahve:</strong> 11:00 öncesi YASAK (Levo emilim). 15:00 sonrası YASAK (uyku).</p>
+    </div>
+  </section>
+
+  <!-- TAB: SUPPLEMENT -->
+  <section class="panel" id="panel-supplement">
+    <div class="card">
+      <h2>Günlük Supplement Çizelgesi</h2>
+      <div class="supp-timeline" id="supp-list"></div>
+    </div>
+    <div class="warning-box">
+      <strong>Kreatin Uyarısı:</strong> Sonraki kan testinden <strong>14 gün önce</strong> kes (kreatinin değerini etkilemesin).
+    </div>
+    <div class="warning-box">
+      <strong>Selenium Uzun Süreli:</strong> 6 ay sonra anti-TPO + glukoz kontrol — Hakan Bey ile konuş, doz revize (200 → 100 mcg ya da kesim).
+    </div>
+  </section>
+
+  <!-- TAB: YEDEK MALZEME -->
+  <section class="panel" id="panel-backup">
+    <div class="card">
+      <h2>Yedek Malzeme Tablosu</h2>
+      <div id="backup-list"></div>
+    </div>
+  </section>
+
+  <!-- TAB: ACİL -->
+  <section class="panel" id="panel-emergency">
+    <div class="card">
+      <h2>🚨 Tatlı Krizi Protokolü</h2>
+      <div id="emergency-steps"></div>
+      <p class="note">Krizler genelde 15:30-17:00 ve 21:00-23:00. 13:00 + 18:30 öğünlerini zamanında yiyince akşam krizi büyük oranda gelmez. Magnezyum gece kraving azaltır.</p>
+    </div>
+    <div class="card">
+      <h2>⚠️ Uyarı Sinyalleri</h2>
+      <div class="warning-box"><strong>Karıncalanma artarsa:</strong> Su + ViDrate sachet. Devam ederse → Hakan Bey erken randevu.</div>
+      <div class="warning-box"><strong>Cycle 7+ gün gecikirse:</strong> RED-S sinyali. Kalori +200-300, antrenman hafiflet, doktor bildir.</div>
+      <div class="warning-box"><strong>HRV %15+ düştü / RHR 5+ atım arttı:</strong> Aşırı yüklenme. Refeed günü, 1 gün ekstra dinlenme.</div>
+      <div class="warning-box"><strong>Antrenman %20+ düştü:</strong> Pre-workout karb artır (1 elma → 1 muz).</div>
+      <div class="warning-box"><strong>Uykusuzluk:</strong> Akşam karb 30-40g ekle (tatlı patates / yulaf), Mg artır.</div>
+    </div>
+  </section>
+
+  <!-- TAB: FİLTRELER -->
+  <section class="panel" id="panel-filters">
+    <div class="card">
+      <h2>🚫 Diyetten ÇIKARILAN</h2>
+      <h3>Brassica ailesi</h3>
+      <p>brokoli, karnabahar, lahana (beyaz/kırmızı/kıvırcık), Brüksel lahanası, kale, turp, karalahana <span class="tag no">YOK</span></p>
+      <p class="note">Roka (Eruca sativa) Brassica olmasına rağmen istisna — kullanıma devam.</p>
+      <h3>Kereviz</h3>
+      <p>Apiaceae ailesi <span class="tag no">YOK</span> · Ama maydanoz/dereotu/havuç/kimyon aynı aileden olmasına rağmen sorun değil.</p>
+      <h3>Gece gölgesi (Solanaceae)</h3>
+      <p>domates, tüm biberler, patlıcan, patates, pul biber, paprika, chili, salça <span class="tag no">YOK</span></p>
+      <p class="note">İstisna: <strong>Tatlı patates</strong> Convolvulaceae ailesinden — izinli.</p>
+      <h3>Tohum / Yağlı tohum / Tohum yağı</h3>
+      <p>ceviz, fındık, fıstık, kaju, antep fıstığı <span class="tag no">YOK</span></p>
+      <p>chia, keten, kabak/ay çekirdeği, susam, tahin, susam yağı <span class="tag no">YOK</span></p>
+      <p>fıstık/ceviz/kaju ezmesi <span class="tag no">YOK</span></p>
+      <p>hindistan cevizi + yağı <span class="tag no">YOK</span></p>
+      <p><strong>TEK İSTİSNA:</strong> Badem (çiğ + kavrulmuş tuzsuz), badem ezmesi, badem sütü <span class="tag ok">İZİNLİ</span></p>
+    </div>
+    <div class="card">
+      <h2>✅ Yağ Kuralları</h2>
+      <p><strong>Yüksek polifenol EVOO</strong> — sabah shot, salatalar, soğuk yemekler</p>
+      <p><strong>Hafif zeytinyağı</strong> — pişirme (tava, sote, fırın). Zeytinyağı dışında pişirme yağı yok.</p>
+      <p><strong>Avokado</strong> — meyve, MUFA, serbest</p>
+    </div>
+    <div class="card">
+      <h2>🍷 Alkol</h2>
+      <p>Pazar brunch'a opsiyonel <strong>1 kadeh kuru beyaz şarap</strong> (Sauvignon Blanc, Pinot Grigio)</p>
+      <p>Hafta içi alkol YOK. Cin tonik bu 3 hafta tercihen YOK.</p>
+    </div>
+    <div class="card">
+      <h2>📋 Kritik Levo Kuralları</h2>
+      <p>1. Levotiron 06:30 aç karın, sade su. 30-60 dk hiçbir şey yok.</p>
+      <p>2. Kahve 11:00 öncesi YASAK.</p>
+      <p>3. Calciday + Qalyviz Levo'dan en az 4 saat sonra → 13:00 ve 18:30.</p>
+      <p>4. Sabah 10:30 öncesi süt/yoğurt/peynir/badem büyük/ıspanak çiğ/demir gıdalar YOK.</p>
+      <p>5. İyotlu tuz büyük miktarda YOK → Himalaya tuzu tercih (Hashimoto için).</p>
+    </div>
+  </section>
+
+  <!-- TAB: ÖLÇÜM -->
+  <section class="panel" id="panel-measure">
+    <div class="card">
+      <h2>📊 Bu Hafta Ölçümler</h2>
+      <p class="note">Her Pazartesi sabah aç karna, tuvaletten sonra, çıplak. Fotoğraf eklemeyi unutma.</p>
+      <div class="week-select" style="margin-top:10px">
+        <button data-mw="0" class="active">Başlangıç</button>
+        <button data-mw="1">Hf 1 sonu</button>
+        <button data-mw="2">Hf 2 sonu</button>
+        <button data-mw="3">Hf 3 sonu</button>
+      </div>
+      <form class="measure-form" id="measure-form">
+        <div class="row">
+          <label>Tartı (kg)<input type="number" step="0.1" data-key="weight"></label>
+          <label>Bel (cm)<input type="number" step="0.5" data-key="waist"></label>
+        </div>
+        <div class="row">
+          <label>Kalça (cm)<input type="number" step="0.5" data-key="hips"></label>
+          <label>Kol (cm)<input type="number" step="0.5" data-key="arm"></label>
+        </div>
+        <div class="row">
+          <label>Bacak (cm)<input type="number" step="0.5" data-key="leg"></label>
+          <label>HRV (ms)<input type="number" data-key="hrv"></label>
+        </div>
+        <div class="row">
+          <label>RHR (bpm)<input type="number" data-key="rhr"></label>
+          <label>Uyku (saat)<input type="number" step="0.1" data-key="sleep"></label>
+        </div>
+        <button type="button" class="btn" onclick="saveMeasure()">Kaydet</button>
+        <div class="saved-msg" id="measure-saved">✓ Kaydedildi</div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>📈 Geçmiş</h2>
+      <div id="measure-history"></div>
+    </div>
+    <div class="card">
+      <h2>⚡ Bugünün Enerjisi (1-10)</h2>
+      <p class="note">Her akşam 22:00 civarı not al.</p>
+      <div class="energy-buttons" id="energy-buttons"></div>
+    </div>
+    <div class="card">
+      <h2>🍬 Bugün Tatlı Krizi?</h2>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn ghost" style="flex:1" onclick="logCraving('yok')">Yok</button>
+        <button class="btn danger" style="flex:1" onclick="logCraving('var')">Var</button>
+      </div>
+      <div class="saved-msg" id="craving-saved">✓ Kaydedildi</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Plan dosyası: <code>~/.claude/plans/3-haftalik-bir-kampa-splendid-stardust.md</code><br>
+  Veri tarayıcına lokal kaydediliyor (localStorage). Backup almak için dışa aktar.
+</footer>
+
+<script>
+// ============== DATA ==============
+const PLAN = {
+  PAZARTESİ: {
+    title: "Alt Vücut Günü",
+    levo: "125 mcg",
+    blocks: [
+      { class:"morning", time:"06:00-10:30", title:"Sabah Rutini", items:[
+        "<strong>06:00</strong> Levotiron 125 mcg + büyük bardak su (30 dk hareket etme)",
+        "<strong>06:15</strong> VAKUM aç karna · 4 set × 15 sn",
+        "<strong>06:30-07:30</strong> Tempolu yürüyüş (fasted) + ViDrate sachet (Ca-free)",
+        "<strong>07:30</strong> Yüksek polifenol EVOO + limon + tuz shot",
+        "<strong>08:00-10:30</strong> Su + bitki çayı. Kahve YOK."
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI · IF açılır", items:[
+        "1 kase yulaf ezmesi (40 g, suyla pişmiş)",
+        "200 g sade %2 yoğurt",
+        "1 yk badem ezmesi + 1 avuç yaban mersini/frambuaz + tarçın",
+        "1 sade Türk kahvesi (ilk kahve)",
+        "<strong>Methylated B-Complex 1 kapsül</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Izgara tavuk göğsü (150 g, hafif zeytinyağı + kekik + kimyon)",
+        "Yeşil salata: marul + roka + salatalık + taze soğan + maydanoz + dereotu",
+        "1 yk yüksek polifenol EVOO + yarım avokado + limon",
+        "<strong>Calciday #1 + Qalyviz #1 + Selenometyonin 200 mcg + UC-II 40 mg</strong>"
+      ]},
+      { class:"snack", time:"14:30", title:"PRE-WORKOUT", items:[
+        "1 küçük elma + 5 çiğ badem",
+        "Opsiyonel 1 filtre kahve"
+      ]},
+      { class:"training", time:"15:00-16:30", title:"ANTRENMAN · Alt Vücut", items:[
+        "Squat 4×10 · Bulgar split squat 3×10 her bacak",
+        "Hip thrust 4×12 · Glute bridge 3×15",
+        "Kalkık bacak abs 3×15"
+      ]},
+      { class:"snack", time:"16:45", title:"POST-WORKOUT", items:[
+        "1 scoop whey + <strong>Kreatin 5g</strong> + 1 küçük muz"
+      ]},
+      { class:"dinner", time:"18:30", title:"AKŞAM", items:[
+        "Fırında somon (140 g, hafif zeytinyağı + limon + dereotu)",
+        "Zeytinyağlı kuşkonmaz (200 g, hafif zeytinyağı + soğan)",
+        "Izgara kabak dilimleri + yüksek polifenol EVOO üstüne",
+        "<strong>Calciday #2 + Qalyviz #2 + Omega-3 4 softgel</strong>"
+      ]},
+      { class:"night", time:"20:30+", title:"Gece Rutini", items:[
+        "<strong>20:30</strong> Plank 2 set (düz)",
+        "<strong>22:00</strong> Çinko 15mg + Bakır 1mg",
+        "<strong>22:30</strong> Magnezyum bisglycinate 240-360 mg (regl haftası 480)",
+        "<strong>23:00</strong> Marine kollajen sachet + uyku",
+        "Toplam su: 3 L (ViDrate dahil)"
+      ]}
+    ]
+  },
+  SALI: {
+    title: "Üst Vücut Günü",
+    levo: "125 mcg",
+    blocks: [
+      { class:"morning", time:"06:00-10:30", title:"Sabah Rutini", items:[
+        "<strong>06:00</strong> Levotiron 125 mcg + su",
+        "<strong>06:15</strong> Vakum · <strong>06:30-07:30</strong> Yürüyüş + ViDrate",
+        "<strong>07:30</strong> EVOO shot"
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI", items:[
+        "Omlet: 2 yumurta beyazı + 1 tam yumurta + bol ıspanak + mantar (hafif zeytinyağı)",
+        "Yarım avokado + 1 dilim çavdar tam tahıl ekmek (40 g)",
+        "Maydanoz/nane serpme + 1 sade kahve",
+        "<strong>B-Complex</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Mercimek çorbası (sade — soğan/havuç/mercimek/kimyon/kekik, salça yok)",
+        "Izgara hindi göğsü (130 g, hafif zeytinyağı + kekik)",
+        "Yeşil salata + EVOO + limon",
+        "<strong>Calciday + Qalyviz + Selenium + UC-II</strong>"
+      ]},
+      { class:"snack", time:"14:30", title:"PRE", items:[
+        "Tahinsiz humus (3 yk: nohut + EVOO + limon + sarımsak)",
+        "Havuç + salatalık çubukları + opsiyonel filtre kahve"
+      ]},
+      { class:"training", time:"15:00-16:30", title:"ANTRENMAN · Üst Vücut", items:[
+        "Sırt: lat pulldown 4×10 · row 4×10",
+        "Omuz: shoulder press 3×10 · lateral raise 3×12",
+        "Biceps/Triceps 3×10 her",
+        "Karın 3 hareket × 15"
+      ]},
+      { class:"snack", time:"16:45", title:"POST", items:[
+        "Whey + Kreatin + 1 hurma"
+      ]},
+      { class:"dinner", time:"18:30", title:"AKŞAM", items:[
+        "Fırında çupra/levrek (150 g, deri çıkarılmış, EVOO + limon + kekik)",
+        "Zeytinyağlı taze fasulye (200 g, hafif zeytinyağı + soğan)",
+        "Salatalık dilimleri",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"20:30+", title:"Gece", items:[
+        "Plank (yan sağ) · <strong>22:00</strong> Çinko · <strong>22:30</strong> Mg · <strong>23:00</strong> Kollajen",
+        "Su: 3 L"
+      ]}
+    ]
+  },
+  ÇARŞAMBA: {
+    title: "Voleybol Günü",
+    levo: "125 mcg",
+    blocks: [
+      { class:"morning", time:"06:00", title:"Sabah Rutini", items:[
+        "<strong>06:00</strong> Levo 125 mcg + su",
+        "<strong>Regl haftasıysa sabah yürüyüşü ATLA</strong>",
+        "Diğer haftalar: Vakum + yürüyüş + ViDrate + EVOO shot"
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI", items:[
+        "Yulaf ezmesi (50 g, suyla pişmiş) + sade yoğurt",
+        "1 yk badem ezmesi + 1 küçük muz dilimlenmiş + tarçın",
+        "Kahve + <strong>B-Complex</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Tavuklu kinoa salatası: 120 g ızgara tavuk + 60 g kinoa",
+        "Roka + marul + salatalık + taze soğan",
+        "3-4 adet kuru kayısı dilimlenmiş + 5 çiğ badem",
+        "Yüksek polifenol EVOO + limon",
+        "<strong>Calciday + Qalyviz + Selenium + UC-II</strong>"
+      ]},
+      { class:"snack", time:"17:00", title:"PRE-VOLEYBOL", items:[
+        "1 muz + 1 yk badem ezmesi"
+      ]},
+      { class:"training", time:"Akşam", title:"VOLEYBOL", items:[
+        "Bol su + 1 ekstra ViDrate sachet (kayıp için)"
+      ]},
+      { class:"snack", time:"~21:00", title:"POST-VOLEYBOL", items:[
+        "1 scoop whey + Kreatin + yarım muz veya 1 dilim kavun"
+      ]},
+      { class:"dinner", time:"21:30", title:"AKŞAM (hafif)", items:[
+        "100 g közlenmiş tavuk veya hindi şinitzel (ekmeksiz, hafif zeytinyağı)",
+        "Bol salata: marul + roka + salatalık + soğan + maydanoz + EVOO + limon",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"Gece", title:"Plank ATLANABİLİR (kor zaten yandı)", items:[
+        "<strong>22:30</strong> Çinko (geç) · <strong>23:00</strong> Mg · Kollajen",
+        "Su: 3.5 L"
+      ]}
+    ]
+  },
+  PERŞEMBE: {
+    title: "Yoga Günü (Üst Vücut YOK)",
+    levo: "100 mcg",
+    blocks: [
+      { class:"morning", time:"06:00-07:30", title:"Sabah Rutini", items:[
+        "<strong>06:00</strong> Levo 100 mcg + su",
+        "<strong>06:15</strong> Vakum · <strong>06:30-07:30</strong> Yürüyüş + ViDrate",
+        "<strong>07:30</strong> EVOO shot"
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI", items:[
+        "Avokadolu yumurta: 2 yumurta scrambled (hafif zeytinyağı) + yarım avokado + karabiber + kekik",
+        "1 dilim çavdar tam tahıl ekmek + salatalık dilimleri",
+        "1 sade kahve + <strong>B-Complex</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Mercimek köftesi (5-6 adet, ev yapımı: yeşil mercimek + bulgur + soğan + maydanoz + nane + kekik + kimyon + EVOO, salça yok)",
+        "Bol yeşillik (marul + roka + maydanoz + dereotu) + EVOO + limon",
+        "<strong>Calciday + Qalyviz + Selenium + UC-II</strong>"
+      ]},
+      { class:"snack", time:"15:30", title:"ARA ÖĞÜN", items:[
+        "100 g lor peyniri + 5 çiğ badem + tarçın + 1 küçük elma"
+      ]},
+      { class:"training", time:"18:00-19:30", title:"YOGA", items:[
+        "Yoga sırasında su · Yoga öncesi 1 saat aç ideal"
+      ]},
+      { class:"dinner", time:"19:30", title:"AKŞAM (yoga sonrası)", items:[
+        "Tavuk şinitzel (140 g, ekmeksiz, hafif zeytinyağı tavada + kekik + kimyon + sarımsak)",
+        "Izgara sebze: kabak + mantar + taze soğan + kuşkonmaz (hafif zeytinyağı)",
+        "Yüksek polifenol EVOO + roka",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"Gece", title:"Karın", items:[
+        "Yoga kor çalıştırır, ek plank istenirse 1 set yeterli",
+        "<strong>22:00</strong> Çinko · <strong>22:30</strong> Mg · <strong>23:00</strong> Kollajen",
+        "Su: 3 L"
+      ]}
+    ]
+  },
+  CUMA: {
+    title: "Alt Vücut Günü (2.)",
+    levo: "100 mcg",
+    blocks: [
+      { class:"morning", time:"06:00-07:30", title:"Sabah Rutini", items:[
+        "<strong>06:00</strong> Levo 100 mcg + su",
+        "<strong>06:15</strong> Vakum · <strong>06:30-07:30</strong> Yürüyüş + ViDrate",
+        "<strong>07:30</strong> EVOO shot"
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI", items:[
+        "Sade yoğurt bowl: 250 g %2 yoğurt + 30 g yulaf + 1 yk badem ezmesi + 1 avuç frambuaz/yaban mersini + tarçın",
+        "1 sade kahve + <strong>B-Complex</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Yoğurtlu kabak (200 g haşlanmış kabak + cacık üstüne: yağlı yoğurt + salatalık + sarımsak + nane)",
+        "Izgara köfte (3-4 adet, yağsız dana 100 g — soğan + maydanoz + kimyon + kekik, salça yok)",
+        "Bol yeşil salata + EVOO + limon",
+        "<strong>Calciday + Qalyviz + Selenium + UC-II</strong>"
+      ]},
+      { class:"snack", time:"14:30", title:"PRE", items:[
+        "1 elma + 5 badem"
+      ]},
+      { class:"training", time:"15:00-16:30", title:"ANTRENMAN · Alt Vücut (2.)", items:[
+        "Deadlift 4×8 · Romanian DL 3×10",
+        "Lunge 3×12 her bacak · Cable kickback 3×15",
+        "Glute aktivasyon: clamshell 3×20 + monster walk"
+      ]},
+      { class:"snack", time:"16:45", title:"POST", items:[
+        "Whey + Kreatin + 1 küçük muz"
+      ]},
+      { class:"dinner", time:"18:30", title:"AKŞAM", items:[
+        "Kabak pilavı (rendelenmiş kabak tava + 100 g hindi kıyma + soğan + maydanoz + kimyon, hafif zeytinyağı — domates/biber yok)",
+        "Cacık (yağlı yoğurt + salatalık + nane + sarımsak)",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"Gece", title:"", items:[
+        "<strong>20:30</strong> Plank (düz) · <strong>22:00</strong> Çinko · <strong>22:30</strong> Mg · <strong>23:00</strong> Kollajen",
+        "Su: 3 L"
+      ]}
+    ]
+  },
+  CUMARTESİ: {
+    title: "2x Yürüyüş Günü",
+    levo: "100 mcg",
+    blocks: [
+      { class:"morning", time:"06:00-07:30", title:"Sabah Yürüyüşü", items:[
+        "<strong>06:00</strong> Levo 100 mcg + su",
+        "<strong>06:15</strong> Vakum · <strong>06:30-07:30</strong> Sabah yürüyüşü + ViDrate",
+        "<strong>07:30</strong> EVOO shot"
+      ]},
+      { class:"morning", time:"10:30", title:"KAHVALTI", items:[
+        "Yulaf-protein bowl: 50 g yulaf suyla pişmiş + 1 scoop whey karıştır + 1 küçük muz + tarçın + 5 çiğ badem",
+        "1 sade kahve + <strong>B-Complex</strong>"
+      ]},
+      { class:"lunch", time:"13:00", title:"ÖĞLE", items:[
+        "Mercimek çorbası (sade)",
+        "Izgara tavuk (130 g, kekik + kimyon)",
+        "Bol mevsim salata (roka + marul + salatalık + taze soğan + maydanoz) + EVOO + limon",
+        "<strong>Calciday + Qalyviz + Selenium + UC-II</strong>"
+      ]},
+      { class:"snack", time:"15:00", title:"ARA", items:[
+        "1 elma + 1 yk badem ezmesi"
+      ]},
+      { class:"training", time:"17:00-18:00", title:"İKİNCİ YÜRÜYÜŞ", items:[
+        "Rahat tempo, sindirim hareketi (fasted değil)"
+      ]},
+      { class:"dinner", time:"18:30", title:"AKŞAM", items:[
+        "Fırında somon (140 g, hafif zeytinyağı + limon + dereotu)",
+        "Zeytinyağlı pırasa (200 g, hafif zeytinyağı + soğan)",
+        "Tahinsiz humus (2 yk) + salatalık dilimleri",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"Gece", title:"", items:[
+        "<strong>20:30</strong> Plank (yan sol) · <strong>22:00</strong> Çinko · <strong>22:30</strong> Mg · <strong>23:00</strong> Kollajen",
+        "Su: 3 L"
+      ]}
+    ]
+  },
+  PAZAR: {
+    title: "Dinlenme + PAZAR BRUNCH",
+    levo: "100 mcg",
+    blocks: [
+      { class:"morning", time:"08:00", title:"Geç Kalkış", items:[
+        "<strong>08:00</strong> Levo 100 mcg + su (yürüyüş yok)",
+        "Vakum aç karna (kalkışta, 4×15 sn)",
+        "<strong>08:00-12:00</strong> Su + bitki çayı (Levo emilim)"
+      ]},
+      { class:"lunch", time:"12:00-14:00", title:"PAZAR BRUNCH (Ödül Öğünü)", items:[
+        "Avokado tost: 1 dilim çavdar + 1 haşlama yumurta + yarım avokado + karabiber + kekik + limon",
+        "Fırın somon (130 g, limon + dereotu + EVOO)",
+        "Hellim ızgara (60 g, hafif zeytinyağı) — küçük porsiyon OK",
+        "Roka + maydanoz salata + EVOO + balsamik + 5 çiğ badem",
+        "Tahinsiz humus + 5-6 yeşil zeytin",
+        "Zeytinyağlı pırasa veya taze fasulye (soğuk)",
+        "<strong>Opsiyonel:</strong> 1 küçük kase sütlaç (ev yapımı, krema yok) + 1 kadeh kuru beyaz şarap",
+        "<span class='tag no'>YASAK</span> pizza, peynir bombası, sucuk/pastırma, kıymalı börek, kaymak, tereyağı, ezme, közlenmiş biber/patlıcan, helva, krema, kruvasan, cin tonik"
+      ]},
+      { class:"snack", time:"15:00", title:"Hafif Yürüyüş", items:[
+        "30 dk mahalle turu (sindirim + kan şekeri stabilizasyon)"
+      ]},
+      { class:"dinner", time:"19:00", title:"AKŞAM (hafif)", items:[
+        "Bol mevsim salata + 100 g ızgara tavuk göğsü + yüksek polifenol EVOO + limon",
+        "<strong>Calciday + Qalyviz + Omega-3</strong>"
+      ]},
+      { class:"night", time:"Gece", title:"", items:[
+        "Plank opsiyonel (dirsek)",
+        "<strong>22:00</strong> Çinko · <strong>22:30</strong> Mg · <strong>23:00</strong> Kollajen",
+        "Su: 3 L"
+      ]}
+    ]
+  }
+};
+
+const WEEK_NOTES = {
+  1: { title:"Hafta 1 · Adaptasyon", note:"Vücudu low-carb moduna sok. İlk 2-3 gün baş ağrısı/halsizlik olursa elektrolit artır." },
+  2: { title:"Hafta 2 · Plateau Önleme", note:"Carb cycling başlat. Antrenman volüm +1 set. Pazar brunch: 1 tatlı VEYA 1 şarap (ikisi birden yok)." },
+  3: { title:"Hafta 3 · Final Push", note:"Sodyum manipülasyonu (son 5 gün tuz azalt). Cmt carb refeed. Pazar brunch en hafif. Set arası 60sn." }
+};
+
+const SUPPLEMENTS = [
+  { time:"06:00", name:"Levotiron", dose:"Pzt-Sal-Çar 125 mcg / Per-Cum-Cmt-Paz 100 mcg", note:"Aç karın, sade su. 30-60 dk hareket etme." },
+  { time:"07:00", name:"ViDrate elektrolit", dose:"1 sachet", note:"Ca-FREE → Levo güvenli. Yürüyüş öncesi." },
+  { time:"10:30", name:"Methylated B-Complex", dose:"1 kapsül (Igennus Super B)", note:"Kahvaltıyla." },
+  { time:"13:00", name:"Calciday D3 #1", dose:"1 tablet (1200mg Ca + 800 IU D3)", note:"Öğleyle." },
+  { time:"13:00", name:"Qalyviz (Calcitriol) #1", dose:"0.5 mcg", note:"Calciday ardından." },
+  { time:"13:00", name:"Selenometyonin", dose:"200 mcg (Solgar L-Selenomethionine)", note:"İyot-free. 6 ay sonra anti-TPO kontrol." },
+  { time:"13:00", name:"UC-II Type 2 kollajen", dose:"40 mg", note:"Öğleyle." },
+  { time:"16:45", name:"Whey + Kreatin", dose:"1 scoop + 5 g Bulk Creapure", note:"Post-workout. Pazar: whey'i kahvaltıya kaydır." },
+  { time:"18:30", name:"Calciday D3 #2", dose:"1 tablet", note:"Akşamla." },
+  { time:"18:30", name:"Qalyviz #2", dose:"0.5 mcg", note:"Calciday ardından." },
+  { time:"18:30", name:"Omega-3", dose:"4 softgel (~4g EPA+DHA, MAV Triple)", note:"LDL için kritik." },
+  { time:"22:00", name:"Çinko + Bakır", dose:"15 mg Zn + 1 mg Cu (Vitabiotics Ultra)", note:"Yatmadan." },
+  { time:"22:30", name:"Magnezyum Bisglycinate", dose:"240-480 mg (Pure Encapsulations, cycle-aware)", note:"Regl haftası 480 mg." },
+  { time:"23:00", name:"Marine Kollajen", dose:"1 sachet 11 g (Zooki)", note:"Gece." }
+];
+
+const BACKUP_LIST = [
+  { item:"Salatalık", alts:"İceberg marul · endivya · frenk soğanı · çiğ kabak rendelenmiş · taze bezelye/bakla" },
+  { item:"Roka", alts:"Su teresi · semizotu · pazı yaprağı · ıspanak çiğ (kalsiyum dikkat öğleden sonra)" },
+  { item:"Marul", alts:"Kıvırcık · Endivya · Romaine · pazı · ıspanak yaprağı" },
+  { item:"Avokado", alts:"5 zeytin + 1 yk ekstra EVOO (yağ profili koru)" },
+  { item:"Yulaf", alts:"Kinoa · çavdar gevreği (Bircher tarzı) · bulgur lapası · tam darı" },
+  { item:"Somon", alts:"Çupra · levrek · alabalık · sardalya · hamsi · uskumru (Omega-3 için)" },
+  { item:"Tavuk göğsü", alts:"Hindi göğsü · beyaz balık · lor + yumurta protein bowl" },
+  { item:"Sade yoğurt", alts:"Kefir (laktoz az) · labne (yağlı, az miktar)" },
+  { item:"Yaban mersini / frambuaz", alts:"Çilek · böğürtlen · vişne · sade elma rende" },
+  { item:"Mercimek", alts:"Nohut · kuru fasulye (haşlanmış, sade) · kinoa" },
+  { item:"Çavdar ekmeği", alts:"Tam buğday ekmeği (az) · siyez ekmeği · kepekli pita yarım" },
+  { item:"Hindi kıyma", alts:"Tavuk kıyma · yağsız dana kıyma (haftada 2 max — LDL)" },
+  { item:"Kuşkonmaz", alts:"Taze fasulye · pırasa · ıspanak · pazı · enginar (taze)" },
+  { item:"Kabak", alts:"Bal kabağı (az, karb yüksek) · kabak çiçeği · taze fasulye" },
+  { item:"Pırasa", alts:"Enginar · kuşkonmaz · taze soğan ızgara · zeytinyağlı yeşil fasulye" }
+];
+
+const EMERGENCY_STEPS = [
+  { title:"1 büyük bardak ılık su + 5 dk bekle", text:"Susuzluk %70 ihtimal tatlı kraving'i taklit eder." },
+  { title:"1 yk badem ezmesi + tarçın", text:"Yağ + tarçın → kan şekeri 30 dk içinde stabilize." },
+  { title:"1-2 kare %85 bitter çikolata + 3 çiğ badem", text:"Magnezyum + polifenol + yağ — fizyolojik tatmin." },
+  { title:"Soğuk duş 90 sn VEYA 5 dk dışarı", text:"Vagus siniri reset, davranışsal kırılma." },
+  { title:"Son çare: 1 hurma + 5 badem + tarçın", text:"Doğal şeker + yağ + fiber. Haftada max 2." }
+];
+
+// ============== APP STATE ==============
+const DAYS = ["PAZAR","PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA","CUMARTESİ"];
+const DAY_SHORT = ["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"];
+let currentDay = DAYS[new Date().getDay()];
+let currentWeek = 1;
+let currentMeasureWeek = 0;
+
+const today = new Date();
+const todayDayName = DAYS[today.getDay()];
+const todayStr = today.toLocaleDateString('tr-TR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+// ============== STORAGE ==============
+const STORAGE_KEY = 'bengisu-camp-v1';
+function getStore() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function setStore(obj) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+}
+function checkKey(day, blockIdx, itemIdx) {
+  const d = new Date().toISOString().slice(0,10);
+  return `chk-${d}-${day}-${blockIdx}-${itemIdx}`;
+}
+
+// ============== RENDER ==============
+function renderHeader() {
+  document.getElementById('today-display').textContent =
+    `${todayStr} · ${PLAN[todayDayName].title}`;
+}
+
+function renderDayNav() {
+  const nav = document.getElementById('day-nav');
+  nav.innerHTML = '';
+  const orderedDays = ["PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA","CUMARTESİ","PAZAR"];
+  orderedDays.forEach((d, i) => {
+    const btn = document.createElement('button');
+    btn.className = (d === currentDay ? 'active ' : '') + (d === todayDayName ? 'today' : '');
+    btn.innerHTML = `<div class="dn">${DAY_SHORT[(i+1)%7]}</div><div class="ds">${i+1}</div>`;
+    btn.onclick = () => { currentDay = d; renderDayNav(); renderDayContent(); };
+    nav.appendChild(btn);
+  });
+}
+
+function renderDayContent() {
+  const cont = document.getElementById('day-content');
+  const day = PLAN[currentDay];
+  const wk = WEEK_NOTES[currentWeek];
+
+  let html = `<div class="card" style="background:linear-gradient(135deg,#FAF8F5,#fff)">
+    <h2>${currentDay} <span class="time">Levo ${day.levo}</span></h2>
+    <h3>${day.title}</h3>
+    <p class="note">${wk.title} · ${wk.note}</p>
+  </div>`;
+
+  let totalItems = 0, checkedItems = 0;
+  const store = getStore();
+
+  day.blocks.forEach((b, bi) => {
+    html += `<div class="card">
+      <div class="meal-block ${b.class}">
+        <div class="meal-time">${b.time}</div>
+        <div class="meal-title">${b.title}</div>
+        <ul class="check-list">`;
+    b.items.forEach((it, ii) => {
+      totalItems++;
+      const k = checkKey(currentDay, bi, ii);
+      const checked = store[k];
+      if (checked) checkedItems++;
+      html += `<li class="${checked?'checked':''}" data-key="${k}">
+        <div class="check"></div>
+        <div class="text">${it}</div>
+      </li>`;
+    });
+    html += `</ul></div></div>`;
+  });
+
+  cont.innerHTML = html;
+
+  // Bind clicks
+  cont.querySelectorAll('.check-list li').forEach(li => {
+    li.onclick = () => {
+      const key = li.dataset.key;
+      const s = getStore();
+      s[key] = !s[key];
+      setStore(s);
+      li.classList.toggle('checked');
+      updateProgress();
+    };
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const day = PLAN[currentDay];
+  const store = getStore();
+  let total = 0, done = 0;
+  day.blocks.forEach((b, bi) => {
+    b.items.forEach((it, ii) => {
+      total++;
+      if (store[checkKey(currentDay, bi, ii)]) done++;
+    });
+  });
+  const pct = total ? (done/total*100) : 0;
+  document.getElementById('day-progress').style.width = pct + '%';
+}
+
+function renderWeekSummary() {
+  const el = document.getElementById('week-summary');
+  const orderedDays = ["PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA","CUMARTESİ","PAZAR"];
+  let html = '';
+  orderedDays.forEach(d => {
+    const p = PLAN[d];
+    html += `<div style="padding:10px 0;border-bottom:1px solid #f5f0eb">
+      <strong>${d}</strong> · <span style="color:#6B6055">${p.title}</span>
+      <span class="tag lunch" style="margin-left:6px">Levo ${p.levo}</span>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderSupplements() {
+  const el = document.getElementById('supp-list');
+  el.innerHTML = SUPPLEMENTS.map(s => `
+    <div class="supp-item" data-time="${s.time}">
+      <div class="supp-name">${s.name}</div>
+      <div class="supp-dose">${s.dose}</div>
+      <div class="supp-note">${s.note}</div>
+    </div>
+  `).join('');
+}
+
+function renderBackup() {
+  const el = document.getElementById('backup-list');
+  el.innerHTML = BACKUP_LIST.map(b => `
+    <div style="padding:10px 0;border-bottom:1px solid #f5f0eb">
+      <div style="font-weight:700;font-size:14px;margin-bottom:2px">${b.item} <span class="tag alt">YEDEK</span></div>
+      <div style="font-size:13px;color:#6B6055">${b.alts}</div>
+    </div>
+  `).join('');
+}
+
+function renderEmergency() {
+  const el = document.getElementById('emergency-steps');
+  el.innerHTML = EMERGENCY_STEPS.map((s, i) => `
+    <div class="step">
+      <div class="step-num">${i+1}</div>
+      <div class="step-text"><strong>${s.title}</strong>${s.text}</div>
+    </div>
+  `).join('');
+}
+
+function renderEnergyButtons() {
+  const el = document.getElementById('energy-buttons');
+  const d = new Date().toISOString().slice(0,10);
+  const store = getStore();
+  const curr = store[`energy-${d}`];
+  el.innerHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    const b = document.createElement('button');
+    b.textContent = i;
+    if (curr === i) b.classList.add('active');
+    b.onclick = () => {
+      const s = getStore();
+      s[`energy-${d}`] = i;
+      setStore(s);
+      renderEnergyButtons();
+    };
+    el.appendChild(b);
+  }
+}
+
+function saveMeasure() {
+  const form = document.getElementById('measure-form');
+  const data = {};
+  form.querySelectorAll('input').forEach(i => {
+    if (i.value) data[i.dataset.key] = i.value;
+  });
+  data.date = new Date().toISOString().slice(0,10);
+  const s = getStore();
+  s[`measure-w${currentMeasureWeek}`] = data;
+  setStore(s);
+  const msg = document.getElementById('measure-saved');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+  renderMeasureHistory();
+}
+
+function loadMeasure() {
+  const s = getStore();
+  const data = s[`measure-w${currentMeasureWeek}`] || {};
+  const form = document.getElementById('measure-form');
+  form.querySelectorAll('input').forEach(i => {
+    i.value = data[i.dataset.key] || '';
+  });
+}
+
+function renderMeasureHistory() {
+  const el = document.getElementById('measure-history');
+  const s = getStore();
+  const labels = ['Başlangıç', 'Hf 1 sonu', 'Hf 2 sonu', 'Hf 3 sonu'];
+  let html = '';
+  for (let w = 0; w < 4; w++) {
+    const d = s[`measure-w${w}`];
+    if (!d) {
+      html += `<div class="history-row"><div class="label">${labels[w]}</div><div class="val" style="color:#aaa">—</div><div></div></div>`;
+      continue;
+    }
+    const summary = [
+      d.weight ? `${d.weight}kg` : '',
+      d.waist ? `bel ${d.waist}` : '',
+      d.hips ? `kalça ${d.hips}` : ''
+    ].filter(Boolean).join(' · ');
+    html += `<div class="history-row">
+      <div class="label">${labels[w]}</div>
+      <div class="val">${summary}</div>
+      <div class="val" style="color:#aaa;font-size:11px">${d.date||''}</div>
+    </div>`;
+  }
+  // Trend
+  const start = s['measure-w0'];
+  const last = s['measure-w3'] || s['measure-w2'] || s['measure-w1'];
+  if (start && last && start.weight && last.weight) {
+    const diff = (parseFloat(last.weight) - parseFloat(start.weight)).toFixed(1);
+    const sign = diff >= 0 ? '+' : '';
+    html += `<div style="margin-top:12px;padding:10px;background:#FAF8F5;border-radius:8px;font-size:13px"><strong>Toplam değişim:</strong> ${sign}${diff} kg</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function logCraving(state) {
+  const d = new Date().toISOString().slice(0,10);
+  const s = getStore();
+  s[`craving-${d}`] = state;
+  setStore(s);
+  const msg = document.getElementById('craving-saved');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+
+// ============== TAB SWITCHING ==============
+document.querySelectorAll('nav.tabs button').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('nav.tabs button').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('panel-' + b.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+});
+
+document.querySelectorAll('.week-select button[data-week]').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.week-select button[data-week]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    currentWeek = parseInt(b.dataset.week);
+    renderDayContent();
+  };
+});
+
+document.querySelectorAll('.week-select button[data-mw]').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.week-select button[data-mw]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    currentMeasureWeek = parseInt(b.dataset.mw);
+    loadMeasure();
+  };
+});
+
+// ============== INIT ==============
+renderHeader();
+renderDayNav();
+renderDayContent();
+renderWeekSummary();
+renderSupplements();
+renderBackup();
+renderEmergency();
+renderEnergyButtons();
+renderMeasureHistory();
+loadMeasure();
+
+// Auto-scroll today into view
+setTimeout(() => {
+  const todayBtn = document.querySelector('.day-nav button.today');
+  if (todayBtn) todayBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}, 200);
+</script>
+</body>
+</html>
