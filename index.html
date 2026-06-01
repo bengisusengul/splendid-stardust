@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#A8C8E1">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kamp">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Splendid Stardust · 3 Haftalık Kamp</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -271,11 +277,90 @@
     header h1 { font-size: 20px; }
     main { padding: 24px; }
   }
+  /* ===== v2 additions ===== */
+  .head-toggle {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(255,255,255,0.4); border: none;
+    width: 34px; height: 34px; border-radius: 50%;
+    font-size: 16px; cursor: pointer; line-height: 1;
+  }
+  .card.day-head { background: linear-gradient(135deg,#FAF8F5,#fff); }
+  .banner-regl {
+    background: #F5C4C0; color: #8a3a32; border-radius: 12px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 12.5px; font-weight: 600;
+  }
+  .macro-chip { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .macro-chip span {
+    background: #FAF8F5; border: 1px solid #ebe6df; border-radius: 100px;
+    padding: 3px 10px; font-size: 11px; font-weight: 700; color: #6B6055;
+  }
+  .regl-switch {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border: 1px solid #ebe6df; border-radius: 12px;
+    padding: 12px 16px; margin-bottom: 12px; gap: 12px;
+  }
+  .toggle {
+    width: 48px; height: 28px; border-radius: 100px; background: #ccc6bd;
+    position: relative; transition: .2s; border: none; cursor: pointer; flex-shrink: 0;
+  }
+  .toggle.on { background: #B8D8B8; }
+  .toggle::after {
+    content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+    background: #fff; top: 3px; left: 3px; transition: .2s;
+  }
+  .toggle.on::after { left: 23px; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .seg button {
+    flex: 1; min-width: 62px; background: #FAF8F5; border: 1px solid #ebe6df;
+    border-radius: 8px; padding: 9px 4px; font-size: 12px; font-weight: 600;
+    color: #6B6055; cursor: pointer;
+  }
+  .seg button.active { background: #2C2C2C; color: #fff; border-color: #2C2C2C; }
+  .chart-wrap { margin-top: 16px; }
+  .chart-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .chart svg { width: 100%; height: 90px; display: block; background: #FAF8F5; border-radius: 8px; }
+  /* ===== dark mode ===== */
+  html[data-theme="dark"] body { background: #15181c; color: #E6E1DA; }
+  html[data-theme="dark"] nav.tabs { background: #1d2126; border-bottom-color: #2a2f36; }
+  html[data-theme="dark"] nav.tabs button { background: #272c33; color: #b8b2a8; }
+  html[data-theme="dark"] nav.tabs button.active { background: #E6E1DA; color: #15181c; }
+  html[data-theme="dark"] .card { background: #1d2126; border-color: #2a2f36; }
+  html[data-theme="dark"] .card.day-head { background: linear-gradient(135deg,#1d2126,#23282f); }
+  html[data-theme="dark"] .card h2 { color: #9aa0a8; }
+  html[data-theme="dark"] .card h3,
+  html[data-theme="dark"] .card p,
+  html[data-theme="dark"] .card h2 .time { color: #E6E1DA; }
+  html[data-theme="dark"] .card p.note { color: #9aa0a8; }
+  html[data-theme="dark"] .check-list li { border-bottom-color: #2a2f36; }
+  html[data-theme="dark"] .check-list .check { border-color: #4a4f57; }
+  html[data-theme="dark"] .check-list li.checked .check { background: #E6E1DA; border-color: #E6E1DA; }
+  html[data-theme="dark"] .check-list li.checked .check::after { border-color: #15181c; }
+  html[data-theme="dark"] .check-list .text strong { color: #E6E1DA; }
+  html[data-theme="dark"] .check-list li.checked .text { color: #6b7079; }
+  html[data-theme="dark"] .day-nav button,
+  html[data-theme="dark"] .week-select button { background: #272c33; border-color: #2a2f36; color: #b8b2a8; }
+  html[data-theme="dark"] .day-nav button.active,
+  html[data-theme="dark"] .week-select button.active { background: #E6E1DA; color: #15181c; }
+  html[data-theme="dark"] .supp-item,
+  html[data-theme="dark"] .filter-row,
+  html[data-theme="dark"] .step,
+  html[data-theme="dark"] .energy-buttons button,
+  html[data-theme="dark"] .seg button { background: #272c33; color: #c8c2b8; }
+  html[data-theme="dark"] .measure-form input { background: #272c33; color: #E6E1DA; border-color: #2a2f36; }
+  html[data-theme="dark"] .history-row { border-bottom-color: #2a2f36; }
+  html[data-theme="dark"] footer { color: #6b7079; }
+  html[data-theme="dark"] .btn.ghost { color: #b8b2a8; border-color: #3a3f47; }
+  html[data-theme="dark"] .regl-switch { background: #1d2126; border-color: #2a2f36; }
+  html[data-theme="dark"] .macro-chip span { background: #272c33; border-color: #2a2f36; color: #c8c2b8; }
+  html[data-theme="dark"] .chart svg { background: #15181c; }
+  html[data-theme="dark"] .head-toggle { background: rgba(0,0,0,0.25); }
+  html[data-theme="dark"] .seg button.active { background: #E6E1DA; color: #15181c; }
 </style>
 </head>
 <body>
 
 <header>
+  <button class="head-toggle" id="theme-toggle" onclick="toggleTheme()">🌙</button>
   <h1>✨ Splendid Stardust · 3 Haftalık Kamp</h1>
   <div class="sub" id="today-display">—</div>
   <div class="progress-bar"><div id="day-progress" style="width:0%"></div></div>
@@ -283,6 +368,7 @@
 
 <nav class="tabs">
   <button data-tab="today" class="active">Bugün</button>
+  <button data-tab="trend">Trend</button>
   <button data-tab="week">Hafta</button>
   <button data-tab="market">Market</button>
   <button data-tab="supplement">Supplement</button>
@@ -290,11 +376,16 @@
   <button data-tab="emergency">Acil</button>
   <button data-tab="filters">Filtre</button>
   <button data-tab="measure">Ölçüm</button>
+  <button data-tab="ayarlar">Ayarlar</button>
 </nav>
 
 <main>
   <!-- TAB: BUGÜN -->
   <section class="panel active" id="panel-today">
+    <div class="regl-switch">
+      <div><strong>🌸 Regl modu</strong><div style="font-size:11px;color:#8B7F71">Açınca regl haftası kuralları uygulanır</div></div>
+      <button class="toggle" id="regl-toggle" onclick="toggleRegl()"></button>
+    </div>
     <div class="week-select">
       <button data-week="1" class="active">Hafta 1<br><small>Adaptasyon</small></button>
       <button data-week="2">Hafta 2<br><small>Plateau Önleme</small></button>
@@ -456,6 +547,14 @@
       <div class="energy-buttons" id="energy-buttons"></div>
     </div>
     <div class="card">
+      <h2>🩺 Semptom (karıncalanma / spazm)</h2>
+      <p class="note">Hipopara takibi — magnezyumun işe yarayıp yaramadığını görmek için her gün işaretle.</p>
+      <div style="font-size:13px;font-weight:600;margin-top:6px">Karıncalanma</div>
+      <div class="seg" id="seg-tingle"></div>
+      <div style="font-size:13px;font-weight:600;margin-top:12px">Spazm / kramp</div>
+      <div class="seg" id="seg-spasm"></div>
+    </div>
+    <div class="card">
       <h2>🍬 Bugün Tatlı Krizi?</h2>
       <div style="display:flex;gap:8px;margin-top:8px">
         <button class="btn ghost" style="flex:1" onclick="logCraving('yok')">Yok</button>
@@ -463,6 +562,54 @@
       </div>
       <div class="saved-msg" id="craving-saved">✓ Kaydedildi</div>
     </div>
+  </section>
+
+  <!-- TAB: TREND -->
+  <section class="panel" id="panel-trend">
+    <div class="card">
+      <h2>📈 Trendler</h2>
+      <p class="note">Ölçüm + günlük loglarından otomatik çizilir. Veri girdikçe dolar.</p>
+      <div id="trend-charts"></div>
+    </div>
+  </section>
+
+  <!-- TAB: AYARLAR -->
+  <section class="panel" id="panel-ayarlar">
+    <div class="card">
+      <h2>💾 Veri Yedekleme</h2>
+      <p class="note">Veriler bu cihazda saklanır. Telefon değişince / tarayıcı temizlenince kaybolmasın diye düzenli yedekle.</p>
+      <button class="btn" onclick="exportBackup()">Yedekle (indir)</button>
+      <button class="btn ghost" onclick="document.getElementById('import-file').click()">Geri Yükle (dosyadan)</button>
+      <input type="file" id="import-file" accept="application/json,.json" style="display:none" onchange="importBackup(this)">
+      <div class="saved-msg" id="backup-saved">✓ Tamam</div>
+    </div>
+    <div class="card">
+      <h2>📅 Takvim Hatırlatıcı (.ics)</h2>
+      <p class="note">Levo + supplement + vakum saatlerini telefon takvimine ekler (günlük, 21 gün).</p>
+      <label style="font-size:12px;color:#6B6055;font-weight:600">Kamp başlangıç tarihi
+        <input type="date" id="ics-start" style="width:100%;padding:10px 12px;border:1px solid #ebe6df;border-radius:8px;margin-top:4px;font-family:inherit;font-size:15px">
+      </label>
+      <button class="btn" onclick="exportICS()" style="margin-top:10px">Takvime ekle (.ics indir)</button>
+    </div>
+    <div class="card">
+      <h2>🎨 Görünüm</h2>
+      <div class="regl-switch" style="margin-bottom:0">
+        <div><strong>Karanlık mod</strong></div>
+        <button class="toggle" id="theme-toggle2" onclick="toggleTheme()"></button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🌸 Regl Modu</h2>
+      <div class="regl-switch" style="margin-bottom:0">
+        <div><strong>Regl haftası kuralları</strong><div style="font-size:11px;color:#8B7F71">Çar yürüyüş yok · Mg 480 · +kalori · demir↑</div></div>
+        <button class="toggle" id="regl-toggle2" onclick="toggleRegl()"></button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>↺ Sıfırlama</h2>
+      <button class="btn ghost" onclick="resetToday()">Bugünün tiklerini sıfırla</button>
+    </div>
+    <footer style="padding-top:4px">Splendid Stardust · v2 · veriler cihazında (localStorage)</footer>
   </section>
 </main>
 
@@ -769,6 +916,16 @@ const WEEK_NOTES = {
   3: { title:"Hafta 3 · Final Push", note:"Sodyum manipülasyonu (son 5 gün tuz azalt). Cmt carb refeed. Pazar brunch en hafif. Set arası 60sn." }
 };
 
+const MACROS = {
+  "PAZARTESİ": "≈1750 kcal · P 135g · K 115g · Y 58g",
+  "SALI": "≈1700 kcal · P 140g · K 100g · Y 60g",
+  "ÇARŞAMBA": "≈1820 kcal · P 130g · K 140g · Y 55g",
+  "PERŞEMBE": "≈1700 kcal · P 135g · K 105g · Y 60g",
+  "CUMA": "≈1750 kcal · P 138g · K 115g · Y 58g",
+  "CUMARTESİ": "≈1780 kcal · P 140g · K 120g · Y 58g",
+  "PAZAR": "≈1850 kcal · P 120g · K 140g · Y 65g · brunch"
+};
+
 const SUPPLEMENTS = [
   { time:"06:00", name:"Levotiron", dose:"Pzt-Sal-Çar 125 mcg / Per-Cum-Cmt-Paz 100 mcg", note:"Aç karın, sade su. 30-60 dk hareket etme." },
   { time:"07:00", name:"ViDrate elektrolit", dose:"1 sachet", note:"Ca-FREE → Levo güvenli. Yürüyüş öncesi." },
@@ -949,10 +1106,15 @@ function renderDayContent() {
   const day = PLAN[currentDay];
   const wk = WEEK_NOTES[currentWeek];
 
-  let html = `<div class="card" style="background:linear-gradient(135deg,#FAF8F5,#fff)">
+  const reglBanner = isRegl()
+    ? `<div class="banner-regl">🌸 Regl modu açık — Çar yürüyüş YOK · Mg 480 mg · +150-200 kcal · demir↑ · cheat'i 2. güne al</div>`
+    : '';
+  const macroChips = (MACROS[currentDay] || '').split(' · ').map(s => `<span>${s}</span>`).join('');
+  let html = reglBanner + `<div class="card day-head">
     <h2>${currentDay} <span class="time">Levo ${day.levo}</span></h2>
     <h3>${day.title}</h3>
     <p class="note">${wk.title} · ${wk.note}</p>
+    <div class="macro-chip">${macroChips}</div>
   </div>`;
 
   let totalItems = 0, checkedItems = 0;
@@ -971,7 +1133,7 @@ function renderDayContent() {
       if (checked) checkedItems++;
       html += `<li class="${checked?'checked':''}" data-key="${k}">
         <div class="check"></div>
-        <div class="text">${it}</div>
+        <div class="text">${reglTransform(it)}</div>
       </li>`;
     });
     html += `</ul></div></div>`;
@@ -1192,6 +1354,187 @@ function logCraving(state) {
   setTimeout(() => msg.classList.remove('show'), 2000);
 }
 
+// ============== v2: THEME ==============
+function applyTheme() {
+  const dark = getStore().theme === 'dark';
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const t = document.getElementById('theme-toggle'); if (t) t.textContent = dark ? '☀️' : '🌙';
+  const t2 = document.getElementById('theme-toggle2'); if (t2) t2.classList.toggle('on', dark);
+}
+function toggleTheme() {
+  const s = getStore();
+  s.theme = (s.theme === 'dark') ? 'light' : 'dark';
+  setStore(s);
+  applyTheme();
+}
+
+// ============== v2: REGL MODE ==============
+function isRegl() { return !!getStore().reglMode; }
+function syncReglToggles() {
+  const on = isRegl();
+  ['regl-toggle', 'regl-toggle2'].forEach(id => { const e = document.getElementById(id); if (e) e.classList.toggle('on', on); });
+}
+function toggleRegl() {
+  const s = getStore();
+  s.reglMode = !s.reglMode;
+  setStore(s);
+  syncReglToggles();
+  renderDayContent();
+}
+function reglTransform(text) {
+  if (!isRegl()) return text;
+  let t = text.replace('Magnezyum bisglycinate 240-360 mg', 'Magnezyum bisglycinate 480 mg (regl)');
+  if (currentDay === 'ÇARŞAMBA' && t.indexOf('Yürüyüş + ViDrate') !== -1) t += ' — <strong>BUGÜN YÜRÜYÜŞ YOK</strong>';
+  return t;
+}
+
+// ============== v2: SYMPTOM LOG ==============
+const SEV = ['Yok', 'Hafif', 'Orta', 'Şiddetli'];
+function symKey() { return 'symptom-' + new Date().toISOString().slice(0, 10); }
+function renderSymptom() {
+  const cur = getStore()[symKey()] || {};
+  [['seg-tingle', 'tingle'], ['seg-spasm', 'spasm']].forEach(([id, key]) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.innerHTML = '';
+    SEV.forEach((label, val) => {
+      const b = document.createElement('button');
+      b.textContent = label;
+      if (cur[key] === val) b.classList.add('active');
+      b.onclick = () => {
+        const s = getStore(); const d = s[symKey()] || {}; d[key] = val; s[symKey()] = d; setStore(s);
+        renderSymptom();
+      };
+      el.appendChild(b);
+    });
+  });
+}
+
+// ============== v2: BACKUP ==============
+function flash(id) { const m = document.getElementById(id); if (!m) return; m.classList.add('show'); setTimeout(() => m.classList.remove('show'), 2000); }
+function exportBackup() {
+  const blob = new Blob([JSON.stringify(getStore(), null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'kamp-yedek-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  flash('backup-saved');
+}
+function importBackup(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const obj = JSON.parse(reader.result);
+      if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) throw new Error('bad');
+      if (!confirm('Mevcut veriler bu yedekle değiştirilecek. Devam edilsin mi?')) { input.value = ''; return; }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      renderAll();
+      flash('backup-saved');
+    } catch (e) { alert('Dosya okunamadı — geçerli bir yedek dosyası değil.'); }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ============== v2: ICS CALENDAR ==============
+function pad2(n) { return (n < 10 ? '0' : '') + n; }
+function exportICS() {
+  const inp = document.getElementById('ics-start');
+  const start = (inp && inp.value) ? new Date(inp.value + 'T00:00:00') : new Date();
+  const dtStr = start.getFullYear() + pad2(start.getMonth() + 1) + pad2(start.getDate());
+  const events = [
+    ['Levotiron (aç karın)', '0600'],
+    ['Vakum (aç karna)', '0615'],
+    ['ViDrate elektrolit', '0700'],
+    ['Kahvaltı + B-Complex', '1030'],
+    ['Öğle + Calciday/Qalyviz/Selenium/UC-II', '1300'],
+    ['Akşam + Calciday/Qalyviz/Omega-3', '1830'],
+    ['Çinko + Bakır', '2200'],
+    ['Magnezyum bisglycinate', '2230'],
+    ['Marine kollajen + uyku', '2300']
+  ];
+  let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SplendidStardust//Kamp//TR\r\nCALSCALE:GREGORIAN\r\n';
+  events.forEach((ev, i) => {
+    ics += 'BEGIN:VEVENT\r\n';
+    ics += 'UID:camp-' + i + '-' + dtStr + '@splendid-stardust\r\n';
+    ics += 'DTSTART:' + dtStr + 'T' + ev[1] + '00\r\n';
+    ics += 'DURATION:PT10M\r\n';
+    ics += 'RRULE:FREQ=DAILY;COUNT=21\r\n';
+    ics += 'SUMMARY:' + ev[0] + '\r\n';
+    ics += 'BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:' + ev[0] + '\r\nTRIGGER:PT0M\r\nEND:VALARM\r\n';
+    ics += 'END:VEVENT\r\n';
+  });
+  ics += 'END:VCALENDAR\r\n';
+  const blob = new Blob([ics], { type: 'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'kamp-hatirlaticilar.ics';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ============== v2: TRENDS (pure SVG) ==============
+function collectDaily(prefix) {
+  const s = getStore(), out = [];
+  Object.keys(s).forEach(k => { if (k.indexOf(prefix) === 0) out.push({ date: k.slice(prefix.length), raw: s[k] }); });
+  out.sort((a, b) => a.date < b.date ? -1 : 1);
+  return out;
+}
+function sparkline(points, opts) {
+  opts = opts || {};
+  if (!points.length) return '<p class="note">Henüz veri yok.</p>';
+  const W = 300, H = 90, pad = 10;
+  const vals = points.map(p => p.value);
+  let mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+  if (opts.min != null) mn = Math.min(mn, opts.min);
+  if (opts.max != null) mx = Math.max(mx, opts.max);
+  if (mn === mx) { mn -= 1; mx += 1; }
+  const n = points.length;
+  const xs = i => pad + (n === 1 ? (W - 2 * pad) / 2 : i * (W - 2 * pad) / (n - 1));
+  const ys = v => H - pad - (v - mn) / (mx - mn) * (H - 2 * pad);
+  let d = '';
+  points.forEach((p, i) => { d += (i ? ' L' : 'M') + xs(i).toFixed(1) + ' ' + ys(p.value).toFixed(1); });
+  const dots = points.map((p, i) => `<circle cx="${xs(i).toFixed(1)}" cy="${ys(p.value).toFixed(1)}" r="3" fill="#7FB0D6"/>`).join('');
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <path d="${d}" fill="none" stroke="#7FB0D6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${dots}
+  </svg><div style="display:flex;justify-content:space-between;font-size:10px;color:#8B7F71;margin-top:2px">
+    <span>${points[0].label}</span><span>↕ ${mn.toFixed(0)}–${mx.toFixed(0)}</span><span>${points[n - 1].label}</span>
+  </div></div>`;
+}
+function renderTrends() {
+  const el = document.getElementById('trend-charts'); if (!el) return;
+  const s = getStore();
+  let html = '';
+  const wlabels = ['Başlangıç', 'Hf1', 'Hf2', 'Hf3'], wpts = [];
+  for (let w = 0; w < 4; w++) { const m = s['measure-w' + w]; if (m && m.weight) wpts.push({ label: wlabels[w], value: parseFloat(m.weight) }); }
+  html += `<div class="chart-wrap"><div class="chart-title">⚖️ Kilo (kg)</div>${sparkline(wpts)}</div>`;
+  const en = collectDaily('energy-').map(p => ({ label: p.date.slice(5), value: Number(p.raw) })).filter(p => !isNaN(p.value));
+  html += `<div class="chart-wrap"><div class="chart-title">⚡ Enerji (1-10)</div>${sparkline(en, { min: 0, max: 10 })}</div>`;
+  const sym = collectDaily('symptom-');
+  const tingle = sym.map(p => ({ label: p.date.slice(5), value: (p.raw && p.raw.tingle) || 0 }));
+  const spasm = sym.map(p => ({ label: p.date.slice(5), value: (p.raw && p.raw.spasm) || 0 }));
+  html += `<div class="chart-wrap"><div class="chart-title">🩺 Karıncalanma (0-3)</div>${sparkline(tingle, { min: 0, max: 3 })}</div>`;
+  html += `<div class="chart-wrap"><div class="chart-title">🩺 Spazm (0-3)</div>${sparkline(spasm, { min: 0, max: 3 })}</div>`;
+  el.innerHTML = html;
+}
+
+// ============== v2: MISC ==============
+function resetToday() {
+  if (!confirm('Bugünün (' + currentDay + ') işaretleri sıfırlansın mı?')) return;
+  const s = getStore();
+  const d = new Date().toISOString().slice(0, 10);
+  Object.keys(s).forEach(k => { if (k.indexOf('chk-' + d + '-' + currentDay + '-') === 0) delete s[k]; });
+  setStore(s);
+  renderDayContent();
+}
+function renderAll() {
+  renderHeader(); renderDayNav(); renderDayContent(); renderWeekSummary();
+  renderSupplements(); renderBackup(); renderEmergency(); renderShopping();
+  renderEnergyButtons(); renderMeasureHistory(); loadMeasure();
+  renderSymptom(); renderTrends(); applyTheme(); syncReglToggles();
+}
+
 // ============== TAB SWITCHING ==============
 document.querySelectorAll('nav.tabs button').forEach(b => {
   b.onclick = () => {
@@ -1199,6 +1542,9 @@ document.querySelectorAll('nav.tabs button').forEach(b => {
     document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
     b.classList.add('active');
     document.getElementById('panel-' + b.dataset.tab).classList.add('active');
+    const tab = b.dataset.tab;
+    if (tab === 'trend') renderTrends();
+    if (tab === 'measure') { renderEnergyButtons(); renderSymptom(); renderMeasureHistory(); }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 });
@@ -1222,23 +1568,21 @@ document.querySelectorAll('.week-select button[data-mw]').forEach(b => {
 });
 
 // ============== INIT ==============
-renderHeader();
-renderDayNav();
-renderDayContent();
-renderWeekSummary();
-renderSupplements();
-renderBackup();
-renderEmergency();
-renderShopping();
-renderEnergyButtons();
-renderMeasureHistory();
-loadMeasure();
+renderAll();
+(function(){ const i = document.getElementById('ics-start'); if (i) i.value = new Date().toISOString().slice(0, 10); })();
 
 // Auto-scroll today into view
 setTimeout(() => {
   const todayBtn = document.querySelector('.day-nav button.today');
   if (todayBtn) todayBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }, 200);
+
+// ============== PWA: service worker ==============
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
